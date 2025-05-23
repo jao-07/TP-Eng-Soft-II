@@ -84,7 +84,6 @@ const separaEnderecos = (V) => {
             vetorAux.push(V[i])
         else{
             matriz.push(vetorAux)
-            //vetorAux.splice(0, vetorAux.length)
             vetorAux = new Array()
             vetorAux.push(V[i])
             endereco = V[i].endereco
