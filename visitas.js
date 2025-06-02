@@ -1,34 +1,34 @@
 class Visita {
     constructor(inicio, fim, endereco) {
-        this.inicio = inicio
-        this.fim = fim
+        this.horarioDeInicio = inicio
+        this.horarioDeFim = fim
         this.endereco = endereco
     }
 
     print(){
-        console.log("Início: " + this.inicio + "h Fim: " + this.fim + "h Endereço: " + this.endereco)
+        console.log("Início: " + this.horarioDeInicio + "h Fim: " + this.horarioDeFim + "h Endereço: " + this.endereco)
     }
 
     check(outraVisita){
         let cont = 0
-        if(this.inicio > outraVisita.inicio)
+        if(this.horarioDeInicio > outraVisita.horarioDeInicio)
             cont++
-        else if(this.inicio < outraVisita.inicio)
+        else if(this.horarioDeInicio < outraVisita.horarioDeInicio)
             cont--
 
-        if(this.inicio > outraVisita.fim)
+        if(this.horarioDeInicio > outraVisita.horarioDeFim)
             cont++
-        else if(this.inicio < outraVisita.fim)
+        else if(this.horarioDeInicio < outraVisita.horarioDeFim)
             cont--
 
-        if(this.fim > outraVisita.inicio)
+        if(this.horarioDeFim > outraVisita.horarioDeInicio)
             cont++
-        else if(this.fim < outraVisita.inicio)
+        else if(this.horarioDeFim < outraVisita.horarioDeInicio)
             cont--
 
-        if(this.fim > outraVisita.fim)
+        if(this.horarioDeFim > outraVisita.horarioDeFim)
             cont++
-        else if(this.fim < outraVisita.fim)
+        else if(this.horarioDeFim < outraVisita.horarioDeFim)
             cont--
 
         if(cont == 4 || cont == -4)
@@ -38,35 +38,35 @@ class Visita {
     }
 
     mescla(outraVisita){
-        let inicio = this.inicio
-        let fim = this.fim
-        if(outraVisita.inicio < inicio)
-            inicio = outraVisita.inicio
+        let inicio = this.horarioDeInicio
+        let fim = this.horarioDeFim
+        if(outraVisita.horarioDeInicio < inicio)
+            inicio = outraVisita.horarioDeInicio
 
-        if(outraVisita.fim > fim)
-            fim = outraVisita.fim
+        if(outraVisita.horarioDeFim > fim)
+            fim = outraVisita.horarioDeFim
 
         let novaVisita = new Visita(inicio, fim, this.endereco)
         return novaVisita
     }
 }
 
-const criaVisitas = (A, B, C) =>{
-    let visitas = new Array()
-    for(let i=0; i<A.length; i++){
-        let visita = new Visita(A[i], B[i], C[i])
+const criaVisitas = (horariosIniciais, horariosFinais, enderecos) =>{
+    let visitas = []
+    for(let i=0; i<horariosIniciais.length; i++){
+        let visita = new Visita(horariosIniciais[i], horariosFinais[i], enderecos[i])
         visitas.push(visita)
     }
     return visitas
 }
 
-const mesclaVisitas = (V) => {
-    for(let i=0; i<V.length; i++){
-        for(let j=i+1; j<V.length; j++){
-            if(V[i].check(V[j])){
-                var novaVisita = V[i].mescla(V[j])
-                V[i] = novaVisita
-                V.splice(j,1)
+const mesclaVisitas = (arrayDeVisitas) => {
+    for(let i=0; i<arrayDeVisitas.length; i++){
+        for(let j=i+1; j<arrayDeVisitas.length; j++){
+            if(arrayDeVisitas[i].check(arrayDeVisitas[j])){
+                var novaVisita = arrayDeVisitas[i].mescla(arrayDeVisitas[j])
+                arrayDeVisitas[i] = novaVisita
+                arrayDeVisitas.splice(j,1)
                 i=-1
                 break
             }
@@ -74,28 +74,28 @@ const mesclaVisitas = (V) => {
     }
 }
 
-const separaEnderecos = (V) => {
-    let vetorAux = new Array()
-    let matriz = new Array()
-    let endereco = V[0].endereco
+const separaEnderecos = (visitas) => {
+    let vetorAuxiliar = []
+    let matriz = []
+    let endereco = visitas[0].endereco
     let i=0
-    while(i < V.length){
-        if(endereco.localeCompare(V[i].endereco) == 0)
-            vetorAux.push(V[i])
+    while(i < visitas.length){
+        if(endereco.localeCompare(visitas[i].endereco) == 0)
+            vetorAuxiliar.push(visitas[i])
         else{
-            matriz.push(vetorAux)
-            vetorAux = new Array()
-            vetorAux.push(V[i])
-            endereco = V[i].endereco
+            matriz.push(vetorAuxiliar)
+            vetorAuxiliar = []
+            vetorAuxiliar.push(visitas[i])
+            endereco = visitas[i].endereco
         }
         i++
     }
-    matriz.push(vetorAux)
+    matriz.push(vetorAuxiliar)
     return matriz
 }
 
-const concatenaEndereços = (A, B, C) =>{
-    let visitas = criaVisitas(A, B, C)
+const concatenaEndereços = (horariosIniciais, horariosFinais, enderecos) =>{
+    let visitas = criaVisitas(horariosIniciais, horariosFinais, enderecos)
     visitas.sort((a, b) => a.endereco.localeCompare(b.endereco))
 
     let matriz = separaEnderecos(visitas)
@@ -107,7 +107,7 @@ const concatenaEndereços = (A, B, C) =>{
     for(let i=0; i<matriz.length; i++){
         for(let j=0; j<matriz[i].length; j++){
             matriz[i][j].print()
-            cont += matriz[i][j].fim - matriz[i][j].inicio
+            cont += matriz[i][j].horarioDeFim - matriz[i][j].horarioDeInicio
         }
     }
     console.log("Total de horas: " + cont + "h")
