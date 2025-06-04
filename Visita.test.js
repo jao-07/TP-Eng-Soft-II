@@ -38,4 +38,13 @@ describe('mescla', () => {
             expect(resultado.horarioDeFim).toBe(8)
             expect(resultado.endereco).toBe("Av. Fleming, 150")
         })
-        
+
+        test('Mescla duas visitas onde uma contém a outra', () => {
+            const v1 = new Visita(3, 9, "Av. Fleming, 150")
+            const v2 = new Visita(4, 7, "Av. Fleming, 150")
+
+            const resultado = v1.mescla(v2)
+
+            expect(resultado.horarioDeInicio).toBe(3)
+            expect(resultado.horarioDeFim).toBe(9)
+        })
