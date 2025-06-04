@@ -1,0 +1,44 @@
+# Dependências
+node_modules/
+
+# Arquivos de log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build e output
+dist/
+build/
+out/
+coverage/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Ambiente local e variáveis
+.env
+.env.local
+.env.*.local
+
+# Cache
+.cache/
+.vscode/
+*.tsbuildinfo
+jest-cache/
+jest-output/
+
+# Arquivos de teste temporários
+*.test-results.json
+
+# IDEs
+.idea/
+*.swp
+*.swo
+
+# Arquivos do GitHub Actions (se forem gerados)
+*.tgz
+
+# Outros
+*.log

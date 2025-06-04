@@ -1,4 +1,4 @@
-import { Visita } from './visitas.js';
+import { Visita } from './Visita.js';
 
 export const criaVisitas = (horariosIniciais, horariosFinais, enderecos) =>{
     let visitas = []
@@ -12,7 +12,7 @@ export const criaVisitas = (horariosIniciais, horariosFinais, enderecos) =>{
 export const mesclaVisitas = (visitas) => {
     for(let i=0; i<visitas.length; i++){
         for(let j=i+1; j<visitas.length; j++){
-            if(visitas[i].check(visitas[j])){
+            if(visitas[i].checaSeTemIntercessaoEntreHorarios(visitas[j])){
                 var novaVisita = visitas[i].mescla(visitas[j])
                 visitas[i] = novaVisita
                 visitas.splice(j,1)

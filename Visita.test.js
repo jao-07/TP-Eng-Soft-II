@@ -1,0 +1,28 @@
+import { Visita } from './Visita.js';
+
+describe('checaSeTemIntercessaoEntreHorarios', () => {
+    test('Quando o horário da visita é totalmente anterior ou posterior ao horário da outra visita', () => {
+        const v1 = new Visita(1, 3, "Av. Fleming, 150")
+        const v2 = new Visita(6, 8, "Av. Fleming, 150")
+
+        expect(v1.checaSeTemIntercessaoEntreHorarios(v2)).toBe(false)
+        expect(v2.checaSeTemIntercessaoEntreHorarios(v1)).toBe(false)
+    })
+
+    test('Quando o horário da visita tem intercessão com o horário da outra visita', () => {
+        const v1 =  new Visita(1, 5, "Av. Fleming, 150")
+        const v2 = new Visita(3, 8, "Av. Fleming, 150")
+
+        expect(v1.checaSeTemIntercessaoEntreHorarios(v2)).toBe(true)
+        expect(v2.checaSeTemIntercessaoEntreHorarios(v1)).toBe(true)
+    })
+
+    test('Quando o horário da visita termina quando a outra visita começa', () => {
+        const v1 =  new Visita(1, 4, "Av. Fleming, 150")
+        const v2 = new Visita(4, 8, "Av. Fleming, 150")
+
+        expect(v1.checaSeTemIntercessaoEntreHorarios(v2)).toBe(true)
+        expect(v2.checaSeTemIntercessaoEntreHorarios(v1)).toBe(true)
+    })
+
+})
