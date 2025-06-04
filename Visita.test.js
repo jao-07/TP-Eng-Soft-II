@@ -48,3 +48,14 @@ describe('mescla', () => {
             expect(resultado.horarioDeInicio).toBe(3)
             expect(resultado.horarioDeFim).toBe(9)
         })
+
+        test('Mescla duas visitas com mesmo horário', () => {
+            const v1 = new Visita(5, 10, "Av. Fleming, 150")
+            const v2 = new Visita(5, 10, "Av. Fleming, 150")
+
+            const resultado = v1.mescla(v2)
+
+            expect(resultado.horarioDeInicio).toBe(5)
+            expect(resultado.horarioDeFim).toBe(10)
+        })
+    })
