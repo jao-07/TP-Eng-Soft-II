@@ -59,3 +59,24 @@ describe('mescla', () => {
             expect(resultado.horarioDeFim).toBe(10)
         })
     })
+
+    describe('print', () => {
+        test('Deve imprimir corretamente os dados da visita', () => {
+            const visita = new Visita(9, 12, "Av. Fleming, 150");
+
+            const originalLog = console.log;
+
+            let output = "";
+
+            console.log = (mensagem) => {
+                output = mensagem;
+            };
+
+            visita.print();
+
+            expect(output).toBe("Início: 9h Fim: 12h Endereço: Av. Fleming, 150");
+
+            console.log = originalLog;
+        });
+    });
+
