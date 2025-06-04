@@ -26,3 +26,16 @@ describe('checaSeTemIntercessaoEntreHorarios', () => {
     })
 
 })
+
+describe('mescla', () => {
+        test('Mescla duas visitas com interseção', () => {
+            const v1 = new Visita(2, 5, "Av. Fleming, 150")
+            const v2 = new Visita(4, 8, "Av. Fleming, 150")
+
+            const resultado = v1.mescla(v2)
+
+            expect(resultado.horarioDeInicio).toBe(2)
+            expect(resultado.horarioDeFim).toBe(8)
+            expect(resultado.endereco).toBe("Av. Fleming, 150")
+        })
+        
