@@ -121,3 +121,19 @@ describe('Visita', () => {
             console.log = originalLog;
         });
     });
+
+    describe('constructor', () => {
+        test('Deve inicializar a visita com os horários e endereço fornecidos', () => {
+            const visita = new Visita(10, 14, "Rua do Teste, 123");
+            expect(visita.horarioDeInicio).toBe(10);
+            expect(visita.horarioDeFim).toBe(14);
+            expect(visita.endereco).toBe("Rua do Teste, 123");
+        });
+
+        test('Deve armazenar horários como números e endereço como string', () => {
+            const visita = new Visita(8, 17.5, "Centro, 456");
+            expect(typeof visita.horarioDeInicio).toBe('number');
+            expect(typeof visita.horarioDeFim).toBe('number');
+            expect(typeof visita.endereco).toBe('string');
+        });
+    });
