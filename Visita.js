@@ -1,5 +1,11 @@
 export class Visita {
     constructor(inicio, fim, endereco) {
+        if (inicio < 0 || fim < 0) {
+            throw new Error("Horários não podem ser negativos");
+        }
+        if (typeof inicio !== 'number' || typeof fim !== 'number') {
+            throw new Error("Horários devem ser números");
+        }
         this.horarioDeInicio = inicio
         this.horarioDeFim = fim
         this.endereco = endereco

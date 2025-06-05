@@ -1,6 +1,6 @@
 Membros:
   - João Victor Evangelista Cruz
-  -
+  - Carlos Ferreira dos Santos Junior
   -
   -
 
