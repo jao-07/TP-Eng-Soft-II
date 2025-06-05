@@ -136,4 +136,17 @@ describe('Visita', () => {
             expect(typeof visita.horarioDeFim).toBe('number');
             expect(typeof visita.endereco).toBe('string');
         });
+
+        describe('inputs inválidos', () => {
+            test('Não deve aceitar horários negativos', () => {
+                const visita = new Visita(-1, 5, "Rua Teste");
+                expect(visita.horarioDeInicio).not.toBe(-1);
+            });
+
+            test('Deve lidar com horários não numéricos', () => {
+                const visita = new Visita("8", "10", "Rua Teste");
+                expect(visita.horarioDeInicio).not.toBe("8");
+                expect(visita.horarioDeFim).not.toBe("10");
+            });
+        });
     });
