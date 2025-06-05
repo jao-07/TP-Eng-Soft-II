@@ -1,5 +1,5 @@
 
-import { criaVisitas, separaEnderecos, mesclaVisitas } from './funcoes.js';
+import { criaVisitas, separaEnderecos, mesclaVisitas, concatenaEndereços } from './funcoes.js';
 import { Visita } from './Visita.js';
 
 describe('criaVisitas', () => {
@@ -37,5 +37,21 @@ describe('mesclaVisitas', () => {
     expect(visitas.length).toBe(2);
     expect(visitas[0].horarioDeInicio).toBe(8);
     expect(visitas[0].horarioDeFim).toBe(11);
+  });
+});
+
+describe('concatenaEndereços', () => {
+  test('Deve processar visitas corretamente', () => {
+    const originalLog = console.log;
+    let outputs = [];
+    console.log = (msg) => outputs.push(msg);
+
+    concatenaEndereços([8, 10, 12], [9, 11, 13], ['Rua A', 'Rua A', 'Rua B']);
+
+    expect(outputs.length).toBeGreaterThan(0);
+    expect(outputs.some(output => output.includes('Lista das concatenações'))).toBe(true);
+    expect(outputs.some(output => output.includes('Total de horas'))).toBe(true);
+
+    console.log = originalLog;
   });
 });
