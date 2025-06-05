@@ -139,14 +139,15 @@ describe('Visita', () => {
 
         describe('inputs inválidos', () => {
             test('Não deve aceitar horários negativos', () => {
-                const visita = new Visita(-1, 5, "Rua Teste");
-                expect(visita.horarioDeInicio).not.toBe(-1);
+                expect(() => {
+                    new Visita(-1, 10, "Rua A");
+                }).toThrow("Horários não podem ser negativos");
             });
 
             test('Deve lidar com horários não numéricos', () => {
-                const visita = new Visita("8", "10", "Rua Teste");
-                expect(visita.horarioDeInicio).not.toBe("8");
-                expect(visita.horarioDeFim).not.toBe("10");
+                expect(() => {
+                    new Visita("abc", 10, "Rua A");
+                }).toThrow("Horários devem ser números");
             });
         });
     });
