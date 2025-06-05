@@ -1,7 +1,7 @@
 Membros:
   - João Victor Evangelista Cruz
   - Carlos Ferreira dos Santos Junior
-  - Gabriel Liberato Matias de Soua
+  - Gabriel Liberato Matias de Souza
   - Theo Lopes Mesquita Pedras
 
 Sistema:
