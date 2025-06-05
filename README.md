@@ -1,8 +1,8 @@
 Membros:
   - João Victor Evangelista Cruz
   - Carlos Ferreira dos Santos Junior
-  -
-  -
+  - Gabriel Liberato Matias de Soua
+  - Theo Lopes Mesquita Pedras
 
 Sistema:
   O sistema simula um sistema de agendamento, e serve para definir e verificar os horários em que pelo menos uma pessoa esteja em um determinado local. Os usuários adicionam os horários em que cada endereço terá visitas e o sistema concatena esses horários e mostra quais horários estarão cobertos em cada endereço.
