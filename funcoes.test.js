@@ -42,16 +42,9 @@ describe('mesclaVisitas', () => {
 
 describe('concatenaEndereços', () => {
   test('Deve processar visitas corretamente', () => {
-    const originalLog = console.log;
-    let outputs = [];
-    console.log = (msg) => outputs.push(msg);
+    const resultado = concatenaEndereços([8, 10, 12], [9, 11, 13], ['Rua A', 'Rua A', 'Rua B']);
 
-    concatenaEndereços([8, 10, 12], [9, 11, 13], ['Rua A', 'Rua A', 'Rua B']);
-
-    expect(outputs.length).toBeGreaterThan(0);
-    expect(outputs.some(output => output.includes('Lista das concatenações'))).toBe(true);
-    expect(outputs.some(output => output.includes('Total de horas'))).toBe(true);
-
-    console.log = originalLog;
+    expect(resultado).toBeTruthy();
+    expect(resultado).toContain('Lista dos endereços e seus horários de cobertura:');
   });
 });

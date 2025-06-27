@@ -8,9 +8,22 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Membros:\r   - João Victor Evangelista Cruz\r   - Carlos Ferreira dos Santos Junior\r   - Gabriel Liberato Matias de Souza\r   - Theo Lopes Mesquita Pedras",
   "type": "module",
   "devDependencies": {
     "jest": "^29.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jao-07/TP-Eng-Soft-II.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jao-07/TP-Eng-Soft-II/issues"
+  },
+  "homepage": "https://github.com/jao-07/TP-Eng-Soft-II#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "sequelize": "^6.37.7"
   }
 }

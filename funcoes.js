@@ -46,18 +46,21 @@ export const separaEnderecos = (visitas) => {
 export const concatenaEndereços = (horariosIniciais, horariosFinais, enderecos) =>{
     let visitas = criaVisitas(horariosIniciais, horariosFinais, enderecos)
     visitas.sort((a, b) => a.endereco.localeCompare(b.endereco))
+    var stringResposta = ''
 
     let matriz = separaEnderecos(visitas)
     for(let i=0; i<matriz.length; i++){
         mesclaVisitas(matriz[i])
     }
     let cont = 0
-    console.log("\nLista das concatenações das visitas:\n")
+    //console.log("\nLista das concatenações das visitas:\n")
+    stringResposta += "\nLista dos endereços e seus horários de cobertura:\n"
     for(let i=0; i<matriz.length; i++){
         for(let j=0; j<matriz[i].length; j++){
-            matriz[i][j].print()
+            stringResposta += matriz[i][j].print()
             cont += matriz[i][j].horarioDeFim - matriz[i][j].horarioDeInicio
         }
     }
-    console.log("\nTotal de horas: " + cont + "h\n")
+
+    return stringResposta;
 }

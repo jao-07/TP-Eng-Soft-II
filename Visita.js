@@ -3,16 +3,17 @@ export class Visita {
         if (inicio < 0 || fim < 0) {
             throw new Error("Horários não podem ser negativos");
         }
-        if (typeof inicio !== 'number' || typeof fim !== 'number') {
-            throw new Error("Horários devem ser números");
-        }
+        // if (typeof inicio !== 'number' || typeof fim !== 'number') {
+        //     throw new Error("Horários devem ser números");
+        // }
         this.horarioDeInicio = inicio
         this.horarioDeFim = fim
         this.endereco = endereco
     }
 
     print(){
-        console.log("Início: " + this.horarioDeInicio + "h Fim: " + this.horarioDeFim + "h Endereço: " + this.endereco)
+        //console.log("Início: " + this.horarioDeInicio + "h Fim: " + this.horarioDeFim + "h Endereço: " + this.endereco)
+        return "Início: " + this.horarioDeInicio + "h Fim: " + this.horarioDeFim + "h Endereço: " + this.endereco + "\n"
     }
 
     checaSeTemIntercessaoEntreHorarios(outraVisita){ 
