@@ -30,12 +30,8 @@ jobs:
     
     - name: Start server in background
       run: |
-        if [ "$RUNNER_OS" == "Windows" ]; then
-          npm run startAPI
-        else
-          npm run startAPI &
-          echo $! > server.pid
-        fi
+        npm run startAPI &
+        echo $! > server.pid
       shell: bash
       env:
         NODE_ENV: test
