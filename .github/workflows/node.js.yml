@@ -26,4 +26,40 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
+    
+    - name: Start server in background
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          start /B npm startAPI
+        else
+          npm startAPI &
+          echo $! > server.pid
+        fi
+      shell: bash
+      env:
+        NODE_ENV: test
+    
+    - name: Wait for server to be ready
+      run: |
+        echo "Waiting for server to start..."
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          timeout 30 powershell -Command "do { Start-Sleep 1; try { Invoke-RestMethod -Uri http://localhost:3000/visitas -Method Get; break } catch { } } while ($true)"
+        else
+          timeout 30 bash -c 'until curl -f http://localhost:3000/visitas 2>/dev/null; do sleep 1; done'
+        fi
+        echo "Server ready"
+      shell: bash
+    
     - run: npm test
+    
+    - name: Stop server
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          taskkill /F /IM node.exe || true
+        else
+          if [ -f server.pid ]; then
+            kill $(cat server.pid) || true
+          fi
+        fi
+      shell: bash
+      if: always()
