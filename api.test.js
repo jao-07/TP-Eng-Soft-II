@@ -132,3 +132,22 @@ describe('API Integration Tests', () => {
 
 
 });
+
+describe('GET /visitas/concatenado', () => {
+    test('deve retornar a string de visitas concatenadas corretamente', async () => {
+        
+        await makeRequest(`${API_BASE_URL}/visitas`, { method: 'DELETE', body: JSON.stringify({ endereco: "Rua Concatenada, 789", inicio: "09:00:00", fim: "10:00:00" }) });
+        await makeRequest(`${API_BASE_URL}/visitas`, { method: 'DELETE', body: JSON.stringify({ endereco: "Rua Concatenada, 789", inicio: "09:30:00", fim: "11:00:00" }) });
+
+        await makeRequest(`${API_BASE_URL}/visitas`, { method: 'POST', body: JSON.stringify({ endereco: "Rua Concatenada, 789", inicio: "09:00:00", fim: "10:00:00" }) });
+        await makeRequest(`${API_BASE_URL}/visitas`, { method: 'POST', body: JSON.stringify({ endereco: "Rua Concatenada, 789", inicio: "09:30:00", fim: "11:00:00" }) });
+
+
+        const response = await makeRequest(`${API_BASE_URL}/visitas/concatenado`);
+
+        expect(response.status).toBe(200);
+
+        const expectedString = "Início: 09:00:00h Fim: 11:00:00h Endereço: Rua Concatenada, 789\n";
+        expect(response.data).toContain(expectedString);
+    });
+});
