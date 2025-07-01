@@ -1,30 +1,30 @@
 {
   "name": "tp-eng-soft-ii",
   "version": "1.0.0",
-  "main": "app.js",
+  "description": "Membros:\r   - João Victor Evangelista Cruz\r   - Carlos Ferreira dos Santos Junior\r   - Gabriel Liberato Matias de Souza\r   - Theo Lopes Mesquita Pedras",
+  "main": "index.js",
+  "type": "module",
   "scripts": {
     "startAPI": "node index.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "Membros:\r   - João Victor Evangelista Cruz\r   - Carlos Ferreira dos Santos Junior\r   - Gabriel Liberato Matias de Souza\r   - Theo Lopes Mesquita Pedras",
-  "type": "module",
-  "devDependencies": {
-    "jest": "^29.7.0"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jao-07/TP-Eng-Soft-II.git"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/jao-07/TP-Eng-Soft-II/issues"
   },
   "homepage": "https://github.com/jao-07/TP-Eng-Soft-II#readme",
   "dependencies": {
-    "express": "^5.1.0",
-    "mysql2": "^3.14.1",
-    "sequelize": "^6.37.7"
+    "express": "^4.19.2",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
