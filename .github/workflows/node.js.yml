@@ -1,7 +1,4 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Node.js CI
+name: CI Node.js
 
 on:
   push:
@@ -10,58 +7,57 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+
+  testar-api:
+
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
-    runs-on: ${{matrix.os}}
+    runs-on: ${{ matrix.os }}
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: "Checkout do código"
+      uses: actions/checkout@v4
+
+    - name: "Configurar Node.js ${{ matrix.node-version }}"
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm install sqlite3
-    - run: npm run build --if-present
-    
-    - name: Start server in background
+
+    - name: "Instalar dependências"
+      run: npm ci
+
+    - name: "Iniciar servidor em segundo plano"
       run: |
         npm run startAPI &
         echo $! > server.pid
       shell: bash
-      env:
-        NODE_ENV: test
-    
-    - name: Wait for server to be ready
+
+    - name: "Aguardar o servidor iniciar"
       run: |
-        echo "Waiting for server to start..."
+        echo "Aguardando o servidor..."
         for i in {1..30}; do
+          # Usa curl para verificar se o endpoint /visitas está respondendo
           if curl -f http://localhost:3000/visitas 2>/dev/null; then
-            echo "Server is ready!"
-            break
-          fi
-          if [ $i -eq 30 ]; then
-            echo "Server failed to start within 30 seconds"
-            exit 1
+            echo "Servidor pronto!"
+            exit 0
           fi
           sleep 1
         done
+        echo "Erro: Servidor não iniciou em 30 segundos."
+        exit 1
       shell: bash
-    
-    - run: npm test
-    
-    - name: Stop server
+
+    - name: "Executar testes com Jest"
+      run: npm test
+
+    - name: "Parar o servidor"
+      if: always()
       run: |
-        if [ "$RUNNER_OS" == "Windows" ]; then
-          taskkill /F /IM node.exe || true
-        else
-          if [ -f server.pid ]; then
-            kill $(cat server.pid) || true
-          fi
+        if [ -f server.pid ]; then
+          kill $(cat server.pid)
         fi
       shell: bash
-      if: always()
